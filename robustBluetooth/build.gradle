@@ -6,8 +6,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 20200625
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -27,8 +27,8 @@ android {
 }
 
 dependencies {
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    api 'io.reactivex.rxjava2:rxjava:2.2.7'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
 }
 
 /** 以下开始是将Android Library上传到JCenter的相关配置 **/
@@ -43,7 +43,7 @@ def gitUrl = 'https://github.com/JackRo/RobustBluetooth.git'
 
 // 发布到组织名称名字，必须填写
 group = "easy.robust.bluetooth"
-//发布到JCenter上的项目名字，必须填写
+// 发布到JCenter上的包名，必须填写
 def libName = "robustBluetooth"
 // 版本号，下次更新是只需要更改版本号即可
 version = "1.0.0"
@@ -127,8 +127,11 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
+        // JCenter上的组织名，必须填写
+        userOrg = "robust-bluetooth"
+        // JCenter上的仓库名，必须填写
         repo = "robustBluetooth"
-        // 发布到JCenter上的项目名字，必须填写
+        // 发布到JCenter上的包名，必须填写
         name = libName
         // 项目描述
         desc = 'Robust Android Classic Bluetooth connect and transfer data to Bluetooth device'

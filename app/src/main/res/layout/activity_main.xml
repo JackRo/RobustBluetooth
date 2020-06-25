@@ -13,7 +13,6 @@
         android:autofillHints="@string/app_name"
         android:hint="Bluetooth Device Mac Address"
         android:inputType="text"
-        android:text="48:A4:93:39:9D:7D"
         tools:ignore="HardcodedText" />
 
     <Button
