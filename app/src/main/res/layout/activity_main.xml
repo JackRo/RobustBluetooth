@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="@string/app_name"
-        android:hint="Mac 地址"
+        android:hint="Bluetooth Device Mac Address"
         android:inputType="text"
+        android:text="48:A4:93:39:9D:7D"
         tools:ignore="HardcodedText" />
 
     <Button
