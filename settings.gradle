@@ -1,2 +1,3 @@
+include ':robustBluetooth'
 include ':app'
 rootProject.name = "RobustBluetooth"

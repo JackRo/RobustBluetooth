@@ -8,9 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.nio.charset.Charset;
 
-import static com.easy.robust.bluetooth.BluetoothException.BLUETOOTH_CONNECTED_TIMEOUT;
-import static com.easy.robust.bluetooth.BluetoothException.DEVICE_BLUETOOTH_DISABLED;
-import static com.easy.robust.bluetooth.BluetoothException.DEVICE_NOT_SUPPORT_BLUETOOTH;
+import easy.robust.bluetooth.BluetoothException;
+import easy.robust.bluetooth.BluetoothTransferData;
+import easy.robust.bluetooth.RobustBluetooth;
+
+import static easy.robust.bluetooth.BluetoothException.BLUETOOTH_CONNECTED_TIMEOUT;
+import static easy.robust.bluetooth.BluetoothException.DEVICE_BLUETOOTH_DISABLED;
+import static easy.robust.bluetooth.BluetoothException.DEVICE_NOT_SUPPORT_BLUETOOTH;
 
 /**
  * MainActivity

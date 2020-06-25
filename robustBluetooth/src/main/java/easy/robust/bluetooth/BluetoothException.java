@@ -1,4 +1,4 @@
-package com.easy.robust.bluetooth;
+package easy.robust.bluetooth;
 
 /**
  * BluetoothException

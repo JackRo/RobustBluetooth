@@ -1,4 +1,4 @@
-package com.easy.robust.bluetooth;
+package easy.robust.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -18,12 +18,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.easy.robust.bluetooth.BluetoothException.BLUETOOTH_CONNECTED_TIMEOUT;
-import static com.easy.robust.bluetooth.BluetoothException.DEVICE_BLUETOOTH_DISABLED;
-import static com.easy.robust.bluetooth.BluetoothException.DEVICE_NOT_SUPPORT_BLUETOOTH;
+import static easy.robust.bluetooth.BluetoothException.BLUETOOTH_CONNECTED_TIMEOUT;
+import static easy.robust.bluetooth.BluetoothException.DEVICE_BLUETOOTH_DISABLED;
+import static easy.robust.bluetooth.BluetoothException.DEVICE_NOT_SUPPORT_BLUETOOTH;
 
 /**
- * Classic Bluetooth connect and write data
+ * Robust Android Classic Bluetooth connect and transfer data to Bluetooth device
  *
  * @author zhuochangjing
  * @since 2020/6/24
