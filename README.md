@@ -48,7 +48,7 @@ Robust Android Classic Bluetooth connect and transfer data to Bluetooth device
         /*
         * I used the Zebra ZQ520 Printer,
         * the data below is used by CPCL instruct,
-        * you can also used ZPL instruct
+        * you could also used ZPL instruct
         * */
         String data = "! 0 200 200 406 1\r\n" + "ON-FEED IGNORE\r\n" + "BOX 20 20 380 380 8\r\n" + "T 0 6 137 177 TEST\r\n" + "PRINT\r\n";
         String charsetName = "GB18030";
