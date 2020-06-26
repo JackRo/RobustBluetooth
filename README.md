@@ -59,7 +59,11 @@ Robust Android Classic Bluetooth connect and transfer data to Bluetooth device
                 this::connectAndPrintSuccess, this::connectAndPrintError);
                 
         private void connectAndPrintSuccess(String s) {
-            Log.e("MainActivity", "connectAndPrint: " + s);
+            if (RobustBluetooth.SUCCESS.equals(s)) {
+                Log.e("MainActivity", "connectAndPrintSuccess: " + s);
+                SystemClock.sleep(1500L);
+                mRobustBluetooth.releaseBluetoothResource();
+            }
         }
     
         private void connectAndPrintError(Throwable throwable) {
@@ -80,5 +84,7 @@ Robust Android Classic Bluetooth connect and transfer data to Bluetooth device
         @Override
         protected void onDestroy() {
             super.onDestroy();
-            mRobustBluetooth.releaseBluetoothResource();
+            if (mRobustBluetooth != null) {                  
+                mRobustBluetooth.releaseBluetoothResource(); 
+            }                                                
         }

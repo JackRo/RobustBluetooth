@@ -1,6 +1,7 @@
 package com.easy.robust.bluetooth;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -37,9 +38,21 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.print_btn).setOnClickListener(v -> connectAndPrint());
     }
 
-    private void initRobustBluetooth() {
+    private void connectAndPrint() {
         try {
             mRobustBluetooth = new RobustBluetooth(macAddressEt.getText().toString());
+            /*
+             * I used the Zebra ZQ520 Printer,
+             * the data below is used by CPCL instruct,
+             * you can also used ZPL instruct
+             * */
+            String data = "! 0 200 200 406 1\r\n" + "ON-FEED IGNORE\r\n" + "BOX 20 20 380 380 8\r\n" + "T 0 6 137 177 TEST\r\n" + "PRINT\r\n";
+            String charsetName = "GB18030";
+            BluetoothTransferData bluetoothTransferData = new BluetoothTransferData();
+            bluetoothTransferData.data = data;
+            bluetoothTransferData.charset = Charset.forName(charsetName);
+            mRobustBluetooth.connectBluetoothDeviceAndTransferDataToIt(bluetoothTransferData,
+                    this::connectAndPrintSuccess, this::connectAndPrintError);
         } catch (Exception e) {
             String errorMessage = e.getMessage();
             if (e instanceof BluetoothException) {
@@ -60,25 +73,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void connectAndPrint() {
-        initRobustBluetooth();
-
-        /*
-        * I used the Zebra ZQ520 Printer,
-        * the data below is used by CPCL instruct,
-        * you can also used ZPL instruct
-        * */
-        String data = "! 0 200 200 406 1\r\n" + "ON-FEED IGNORE\r\n" + "BOX 20 20 380 380 8\r\n" + "T 0 6 137 177 TEST\r\n" + "PRINT\r\n";
-        String charsetName = "GB18030";
-        BluetoothTransferData bluetoothTransferData = new BluetoothTransferData();
-        bluetoothTransferData.data = data;
-        bluetoothTransferData.charset = Charset.forName(charsetName);
-        mRobustBluetooth.connectBluetoothDeviceAndTransferDataToIt(bluetoothTransferData,
-                this::connectAndPrintSuccess, this::connectAndPrintError);
-    }
-
     private void connectAndPrintSuccess(String s) {
-        Log.e("MainActivity", "connectAndPrint: " + s);
+        if (RobustBluetooth.SUCCESS.equals(s)) {
+            Log.e("MainActivity", "connectAndPrintSuccess: " + s);
+            SystemClock.sleep(1500L);
+            mRobustBluetooth.releaseBluetoothResource();
+        }
     }
 
     private void connectAndPrintError(Throwable throwable) {
@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRobustBluetooth.releaseBluetoothResource();
+        if (mRobustBluetooth != null) {
+            mRobustBluetooth.releaseBluetoothResource();
+        }
     }
 }
