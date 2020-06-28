@@ -2,6 +2,7 @@ package com.easy.robust.bluetooth;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -24,9 +25,11 @@ import static easy.robust.bluetooth.BluetoothException.DEVICE_NOT_SUPPORT_BLUETO
  */
 public class MainActivity extends AppCompatActivity {
 
-    EditText macAddressEt;
+    public static final String TAG = MainActivity.class.getSimpleName();
 
-    RobustBluetooth mRobustBluetooth;
+    private EditText macAddressEt;
+
+    private RobustBluetooth mRobustBluetooth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         macAddressEt = findViewById(R.id.mac_address_et);
+
+        /*
+        * if you scan the MacAddress's barcode, the barcode may be like 'aabbccddeeff',
+        * you could insert colon every 2 chars like below.
+        * */
+        macAddressEt.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                String tempMacAddress1 = s.toString();
+                String tempMacAddress2 = tempMacAddress1.replaceAll("(.{2})", "$1:");
+                String finalMacAddress = tempMacAddress2.substring(0, tempMacAddress2.length() - 1);
+                Log.e(TAG, "afterTextChanged finalMacAddress: " + finalMacAddress);
+
+                macAddressEt.removeTextChangedListener(this);
+                macAddressEt.setText(finalMacAddress);
+                macAddressEt.setSelection(finalMacAddress.length());
+                macAddressEt.addTextChangedListener(this);
+            }
+        });
 
         findViewById(R.id.print_btn).setOnClickListener(v -> connectAndPrint());
     }
@@ -69,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-            Log.e("MainActivity", "initRobustBluetooth：" + errorMessage);
+            Log.e(TAG, "initRobustBluetooth：" + errorMessage);
         }
     }
 
     private void connectAndPrintSuccess(String s) {
         if (RobustBluetooth.SUCCESS.equals(s)) {
-            Log.e("MainActivity", "connectAndPrintSuccess: " + s);
+            Log.e(TAG, "connectAndPrintSuccess: " + s);
             SystemClock.sleep(1500L);
             mRobustBluetooth.releaseBluetoothResource();
         }
@@ -90,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 errorMessage = "bluetooth connected timeout";
             }
         }
-        Log.e("MainActivity", "connectAndPrint：" + errorMessage);
+        Log.e(TAG, "connectAndPrint：" + errorMessage);
     }
 
     @Override
