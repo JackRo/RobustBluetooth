@@ -2,6 +2,8 @@
 
 Robust Android Classic Bluetooth connect and transfer data to Bluetooth device
 
+[ ![Download](https://api.bintray.com/packages/robust-bluetooth/robustBluetooth/robustBluetooth/images/download.svg) ](https://bintray.com/robust-bluetooth/robustBluetooth/robustBluetooth/_latestVersion)
+
 ## Usage
 
 1. Add maven repo url
