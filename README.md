@@ -18,7 +18,7 @@ Robust Android Classic Bluetooth connect and transfer data to Bluetooth device
 2. Add dependency
 
 
-        implementation 'easy.robust.bluetooth:robustBluetooth:1.0.3'
+        implementation 'easy.robust.bluetooth:robustBluetooth:1.0.4'
 
 3. Init RobustBluetooth
 

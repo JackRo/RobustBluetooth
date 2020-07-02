@@ -76,21 +76,11 @@ public final class RobustBluetooth {
                     UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
                     mBluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(uuid);
 
-                    // try to connect 2s
-                    int times = 10;
-                    do {
-                        if (times < 1) {
-                            throw new BluetoothException(BLUETOOTH_CONNECTED_TIMEOUT);
-                        }
-                        try {
-                            mBluetoothSocket.connect();
-                            SystemClock.sleep(200L);
-                        } catch (Exception e) {
-                            // do nothing
-                        } finally {
-                            times--;
-                        }
-                    } while ((!mBluetoothSocket.isConnected()));
+                    try {
+                        mBluetoothSocket.connect();
+                    } catch (Exception e) {
+                        throw new BluetoothException(BLUETOOTH_CONNECTED_TIMEOUT);
+                    }
 
                     // prepare for transfer data to Bluetooth Device
                     byte[] realWriteData = writeData.getBytes(transferData.charset);
